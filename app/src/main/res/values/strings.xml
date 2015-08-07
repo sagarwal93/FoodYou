@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FoodYou</string>
+    <string name="title_activity_open_orders">OpenOrdersActivity</string>
+
+    <string name="getorders">Get Orders</string>
+    <string name="action_settings">Settings</string>
+</resources>
