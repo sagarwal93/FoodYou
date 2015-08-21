@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "23.0.0 rc2"
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         applicationId "com.ncr.foodyou"
@@ -13,12 +13,12 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField 'String', 'api_url', '\"http://foodusapi.azurewebsites.net\"'
+            buildConfigField 'String', 'api_url', '\"http://foodusapi.azurewebsites.net/api\"'
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'api_url', '\"http://foodusapi.azurewebsites.net\"'
+            buildConfigField 'String', 'api_url', '\"http://foodusapi.azurewebsites.net/api\"'
         }
     }
 }
@@ -27,4 +27,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'com.google.code.gson:gson:2.3.1'
 }

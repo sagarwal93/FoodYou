@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="foodyousession">FoodYouSharedPreference</string>
     <string name="title_activity_deliver">DeliverActivity</string>
-
+    <string name="acceptorder">Accept Order</string>
+    <string name="denyorder">Deny Order</string>
     <string name="hello_world">Hello world!</string>
 </resources>
