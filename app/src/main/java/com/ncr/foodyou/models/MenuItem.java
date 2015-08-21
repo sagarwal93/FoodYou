@@ -1,7 +1,7 @@
 package com.ncr.foodyou.models;
 
 /**
- * Created by Samarth on 7/24/15.
+ * Created by Samarth on 7/24/15
  */
 public class MenuItem {
 

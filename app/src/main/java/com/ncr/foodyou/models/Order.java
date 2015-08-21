@@ -7,38 +7,52 @@ import java.util.List;
  */
 public class Order {
 
-    public enum OrderState {active, pickedup, delivered, closed}
+    public enum OrderState {Pending, Assigned, Pickedup, Delivered}
 
     private String _id;
     private double distance;
-    private Site site;
-    private List<MenuItem> items;
-    private Customer customer;
-    private OrderState state;
+    private Site Site;
+    private List<MenuItem> MenuItems;
+    private Customer Customer;
+    private OrderState Status;
 
-    public Order(String _id, double distance, Site site, List<MenuItem> items, Customer customer) {
+    public Order(String _id, double distance, Site site, List<MenuItem> items, Customer customer, OrderState status) {
         this._id = _id;
         this.distance = distance;
-        this.site = site;
-        this.items = items;
-        this.customer = customer;
-        this.state = OrderState.active;
+        this.Site = site;
+        this.MenuItems = items;
+        this.Customer = customer;
+        Status = status;
     }
 
     public String getSiteName() {
-        return site.getSiteName();
+        return Site.getSiteName();
     }
 
     public String getSiteAddress() {
-        return site.getSiteAddress();
+        return Site.getSiteAddress();
     }
 
     public OrderState getOrderState() {
-        return state;
+        return Status;
     }
 
     public void setOrderState(OrderState newState) {
-        state = newState;
+        Status = newState;
+    }
+
+    public String getCustomerDetails() {
+        String retString = "";
+
+        retString += Customer.getName() + "\n";
+        retString += Customer.getAddress() + "\n";
+
+        return retString;
+    }
+
+    public void setDistance(String distance) {
+        if (distance == null) return;
+        this.distance = Double.parseDouble(distance);
     }
 
     public String getStringDistance() {
@@ -50,7 +64,7 @@ public class Order {
 //
 //        retJson += ("_id:" + _id + ",");
 //        retJson += ("distance:" + Double.toString(distance) + ",");
-//        retJson += ("site:" + site.getSiteJson() + ",");
+//        retJson += ("Site:" + Site.getSiteJson() + ",");
 //
 //        for(int i = 0; i < items.size(); i++) {
 //            retJson += items.get(i).getMenuItemJson();

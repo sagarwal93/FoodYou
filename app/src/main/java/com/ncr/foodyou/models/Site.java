@@ -5,26 +5,27 @@ package com.ncr.foodyou.models;
  */
 public class Site {
 
-    private String _id;
-    private String menu_id;
-    private String name;
-    private String address;
-    private double lat;
-    private double lng;
+    private String id;
+    private String Menu_id;
+    private String Name;
+    private Address Address;
 
-    public Site(String _id, String menu_id, String name, String address, double lat, double lng) {
-        this._id = _id;
-        this.menu_id = menu_id;
-        this.name = name;
-        this.address = address;
-        this.lat = lat;
-        this.lng = lng;
+    public Site(String _id, String menu_id, String name, Address address) {
+        this.id = _id;
+        this.Menu_id = menu_id;
+        this.Name = name;
+        this.Address = address;
     }
 
     public String getSiteName() {
-        return name;
+        return Name;
     }
-    public String getSiteAddress() { return address; }
+    public String getSiteAddress() { return Address.toString(); }
+
+//    public static Site getSiteFromJson(String json) {
+//
+//
+//    }
 
 //    public String getSiteJson() {
 //        String retJson = "{";

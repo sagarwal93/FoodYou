@@ -1,24 +1,24 @@
 package com.ncr.foodyou.models;
 
 /**
- * Created by Samarth on 8/7/15.
+ * Created by Samarth on 8/7/15
  */
 public class Customer {
 
-    private String name;
-    private String address;
+    private String Name;
+    private Address Address;
 
-    public Customer(String name, String address) {
+    public Customer(String name, Address address) {
 
-        this.name = name;
-        this.address = address;
+        this.Name = name;
+        this.Address = address;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public String getAddress() {
-        return address;
+    public Address getAddress() {
+        return Address;
     }
 }

@@ -23,6 +23,7 @@ import org.w3c.dom.Text;
 public class DeliverActivity extends FragmentActivity implements OnMapReadyCallback {
 
     GoogleMap map;
+    TextView statusInfoTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +32,14 @@ public class DeliverActivity extends FragmentActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        TextView statusInfoTextView = (TextView) findViewById(R.id.status_information);
+        statusInfoTextView = (TextView) findViewById(R.id.status_information);
         statusInfoTextView.setText(getOrderInformation());
     }
 
     private String getOrderInformation() {
         String retString = "";
 
-        retString += "OrderInformation: \n";
+        retString += "Order Information: \n";
         retString += Session.activeOrder.getSiteName() + "\n";
         retString += Session.activeOrder.getSiteAddress() + "\n";
 
@@ -77,10 +78,32 @@ public class DeliverActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     public void changeOrderState(View view) {
-        if (Session.activeOrder.getOrderState() == Order.OrderState.active) {
-            Session.activeOrder.setOrderState(Order.OrderState.pickedup);
+        if (Session.activeOrder.getOrderState() == Order.OrderState.Assigned) {
+            Session.activeOrder.setOrderState(Order.OrderState.Pickedup);
             Button orderStateButton = (Button) findViewById(R.id.order_state_button);
             orderStateButton.setText("Delivered");
+
+            statusInfoTextView.setText("");
+            statusInfoTextView.setText(getRouteStateText());
         }
+        changeMapMarkers();
+    }
+
+    public String getRouteStateText() {
+        String retString = "";
+
+        retString += "Customer Information: \n";
+        retString += Session.activeOrder.getCustomerDetails();
+
+        return retString;
+    }
+
+    public void changeMapMarkers() {
+        map.clear();
+
+        LatLng latlng = new LatLng(33.740445,-84.381299);
+        MarkerOptions marker = new MarkerOptions().position(latlng).title("Marker");
+        map.addMarker(marker);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 17));
     }
 }

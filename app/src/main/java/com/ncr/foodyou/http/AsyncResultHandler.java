@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 public interface AsyncResultHandler {
 
-    public void onSuccess(Object a);
+    public void onSuccess();
     public void onFailure();
 
 }

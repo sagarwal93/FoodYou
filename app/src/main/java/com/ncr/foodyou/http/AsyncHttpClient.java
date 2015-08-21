@@ -44,19 +44,19 @@ public class AsyncHttpClient {
             protected Void doInBackground(Void... params) {
                 try {
                     HttpPost post = new HttpPost(url);
-                    Log.d("String Entity Data", data.toString());
+                    //Log.d("String Entity Data", data.toString());
                     StringEntity se = new StringEntity(data.toString(), HTTP.UTF_8);
                     post.setEntity(se);
 
                     HttpResponse responseHttp = client.execute(post);
 
                     String responseData = EntityUtils.toString(responseHttp.getEntity());
-                    Log.d("ResponseData", responseData.toString());
-                    Log.d("ResponseHTTP", Integer.toString(responseHttp.getStatusLine().getStatusCode()));
+//                    Log.d("ResponseData", responseData.toString());
+//                    Log.d("ResponseHTTP", Integer.toString(responseHttp.getStatusLine().getStatusCode()));
 
                     if (responseHttp.getStatusLine().getStatusCode() == 200) {
                         JSONObject responseJSON = new JSONObject(responseData);
-                        Log.d("Executing Post", "Success");
+                        //Log.d("Executing Post", "Success");
                         handler.onSuccess(responseJSON);
                     }
                 }
@@ -79,24 +79,31 @@ public class AsyncHttpClient {
 
     public void get(final String url, final AsyncHttpResponseHandler handler) {
 
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, JSONObject>() {
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected JSONObject doInBackground(Void... params) {
                 try {
                     HttpGet get = new HttpGet(url);
-
                     HttpResponse responseHttp = client.execute(get);
                     String responseData = EntityUtils.toString(responseHttp.getEntity());
                     JSONObject responseJSON = new JSONObject(responseData);
 
                     if (responseHttp.getStatusLine().getStatusCode() == 200)
-                        handler.onSuccess(responseJSON);
+                        return responseJSON;
                 }
                 catch (Exception e) {
 
                 }
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(JSONObject result) {
+                super.onPostExecute(result);
+                if(result != null){
+                    handler.onSuccess(result);
+                }
             }
         }.execute();
     }

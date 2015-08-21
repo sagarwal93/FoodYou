@@ -8,11 +8,16 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
 import com.ncr.foodyou.R;
 import com.ncr.foodyou.Session;
+import com.ncr.foodyou.api.FoodYouAPI;
+import com.ncr.foodyou.http.AsyncResultHandler;
 import com.ncr.foodyou.models.Customer;
 import com.ncr.foodyou.models.Order;
 import com.ncr.foodyou.models.Site;
@@ -21,23 +26,18 @@ import java.util.ArrayList;
 
 public class OpenOrdersActivity extends Activity {
 
-    private RecyclerView ordersRecyclerView;
-    private OrdersAdapter ordersAdapter;
-    private RecyclerView.LayoutManager ordersLayoutManager;
-    private ArrayList<Order> orders;
     private SharedPreferences pref;
+    private TextView orderDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_orders);
 
-        ordersRecyclerView = (RecyclerView) findViewById(R.id.ordersRecyclerView);
-        ordersLayoutManager = new LinearLayoutManager(this);
-        ordersRecyclerView.setLayoutManager(ordersLayoutManager);
-
-
         pref = getApplicationContext().getSharedPreferences(getString(R.string.foodyousession), Context.MODE_PRIVATE);
+        orderDisplay = (TextView) findViewById(R.id.orderdisplay);
+
+        getOrder();
     }
 
     @Override
@@ -62,42 +62,50 @@ public class OpenOrdersActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getOrders(View view) {
+    public void getOrder() {
         Location location = new Location("Test");
-        location.setLatitude(50);
-        location.setLongitude(50);
-//        FoodYouAPI.getOrders(location, new AsyncResultHandler() {
-//            @Override
-//            public void onSuccess(Object result) {
-//                orders = (ArrayList<Order>) result;
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//
-//            }
-//        });
-        com.ncr.foodyou.models.MenuItem menuItem = new com.ncr.foodyou.models.MenuItem("", "Burger", 3.50);
-        ArrayList<com.ncr.foodyou.models.MenuItem> items = new ArrayList<>();
-        items.add(0, menuItem);
-        Site site = new Site("", "", "Chipotle", "Ponce De Leon", 33.7739824,-84.3634878);
-        Order testOrder1 = new Order("", 2.3, site, items, new Customer("sam", "atl"));
-        Order testOrder2 = new Order("", 4, site, items, new Customer("matt", "atl"));
+        location.setLatitude(525586.54);
+        location.setLongitude(25452.545);
+        FoodYouAPI.getNextOrder(location, new AsyncResultHandler() {
 
-        orders = new ArrayList<>();
-        ordersAdapter = new OrdersAdapter(orders);
-        ordersRecyclerView.setAdapter(ordersAdapter);
-        orders.add(0, testOrder1);
-        orders.add(1, testOrder2);
+            @Override
+            public void onSuccess() {
+                populateOrderTextView();
+            }
 
-        ordersAdapter.updateList(orders);
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
-    public void selectOrder(View view) {
-        int itemPosition = ordersRecyclerView.getChildAdapterPosition(view);
-        Session.setActiveOrder(orders.get(itemPosition));
+    public void populateOrderTextView() {
+        String displayText = "";
+        displayText += "Order Information: \n";
+        displayText += Session.activeOrder.getSiteName() + "\n";
+        displayText += Session.activeOrder.getSiteAddress() + "\n";
+        orderDisplay.setText(displayText);
+    }
 
+    public void acceptOrder(View view) {
+        if (Session.activeOrder.getOrderState() == Order.OrderState.Pending) {
+            Session.activeOrder.setOrderState(Order.OrderState.Assigned);
+        }
         Intent intent = new Intent(this, DeliverActivity.class);
         startActivity(intent);
     }
+
+    public void denyOrder(View view) {
+        getOrder();
+    }
+
+//    public void selectOrder(View view) {
+//        int itemPosition = ordersRecyclerView.getChildAdapterPosition(view);
+//        Session.setActiveOrder(orders.get(itemPosition));
+//        Session.activeOrder.setOrderState(Order.OrderState.active);
+//
+//        Intent intent = new Intent(this, DeliverActivity.class);
+//        startActivity(intent);
+//    }
 }
