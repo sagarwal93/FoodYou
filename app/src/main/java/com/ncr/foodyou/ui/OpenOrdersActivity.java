@@ -84,7 +84,7 @@ public class OpenOrdersActivity extends Activity {
         String displayText = "";
         displayText += "Order Information: \n";
         displayText += Session.activeOrder.getSiteName() + "\n";
-        displayText += Session.activeOrder.getSiteAddress() + "\n";
+        displayText += Session.activeOrder.getSiteAddress().toString() + "\n";
         orderDisplay.setText(displayText);
     }
 

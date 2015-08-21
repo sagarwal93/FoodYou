@@ -22,4 +22,16 @@ public class Address {
         Phone = phone;
         Coordinates = coordinates;
     }
+
+    @Override
+    public String toString() {
+        String retVal = "";
+
+        retVal += Address1 + "\n";
+        retVal += Address2 + "\n";
+        retVal += City + ", " + State + Zip + "\n";
+        retVal += Phone + "\n";
+
+        return retVal;
+    }
 }

@@ -12,4 +12,9 @@ public class Coordinates {
         Latitude = lat;
         Longitude = lng;
     }
+
+    @Override
+    public String toString() {
+        return Double.toString(Latitude) + ", " + Double.toString(Longitude);
+    }
 }
