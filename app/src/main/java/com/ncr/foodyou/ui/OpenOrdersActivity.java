@@ -1,24 +1,23 @@
 package com.ncr.foodyou.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.ncr.foodyou.R;
+import com.ncr.foodyou.Session;
+import com.ncr.foodyou.models.Customer;
 import com.ncr.foodyou.models.Order;
 import com.ncr.foodyou.models.Site;
 import com.ncr.foodyou.ui.adapters.OrdersAdapter;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class OpenOrdersActivity extends Activity {
 
@@ -26,20 +25,19 @@ public class OpenOrdersActivity extends Activity {
     private OrdersAdapter ordersAdapter;
     private RecyclerView.LayoutManager ordersLayoutManager;
     private ArrayList<Order> orders;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_orders);
 
-        orders = new ArrayList<>();
-
         ordersRecyclerView = (RecyclerView) findViewById(R.id.ordersRecyclerView);
         ordersLayoutManager = new LinearLayoutManager(this);
         ordersRecyclerView.setLayoutManager(ordersLayoutManager);
 
-        ordersAdapter = new OrdersAdapter(orders);
-        ordersRecyclerView.setAdapter(ordersAdapter);
+
+        pref = getApplicationContext().getSharedPreferences(getString(R.string.foodyousession), Context.MODE_PRIVATE);
     }
 
     @Override
@@ -71,7 +69,7 @@ public class OpenOrdersActivity extends Activity {
 //        FoodYouAPI.getOrders(location, new AsyncResultHandler() {
 //            @Override
 //            public void onSuccess(Object result) {
-//                orders = (ArrayList<Order>)result;
+//                orders = (ArrayList<Order>) result;
 //            }
 //
 //            @Override
@@ -82,12 +80,24 @@ public class OpenOrdersActivity extends Activity {
         com.ncr.foodyou.models.MenuItem menuItem = new com.ncr.foodyou.models.MenuItem("", "Burger", 3.50);
         ArrayList<com.ncr.foodyou.models.MenuItem> items = new ArrayList<>();
         items.add(0, menuItem);
-        Site site = new Site("", "", "Chipotle");
-        Order testOrder1 = new Order("", 2.3, site, items);
-        Log.d("Here", "at the wall");
+        Site site = new Site("", "", "Chipotle", "Ponce De Leon", 33.7739824,-84.3634878);
+        Order testOrder1 = new Order("", 2.3, site, items, new Customer("sam", "atl"));
+        Order testOrder2 = new Order("", 4, site, items, new Customer("matt", "atl"));
+
+        orders = new ArrayList<>();
+        ordersAdapter = new OrdersAdapter(orders);
+        ordersRecyclerView.setAdapter(ordersAdapter);
         orders.add(0, testOrder1);
-        orders.add(1, testOrder1);
+        orders.add(1, testOrder2);
 
         ordersAdapter.updateList(orders);
+    }
+
+    public void selectOrder(View view) {
+        int itemPosition = ordersRecyclerView.getChildAdapterPosition(view);
+        Session.setActiveOrder(orders.get(itemPosition));
+
+        Intent intent = new Intent(this, DeliverActivity.class);
+        startActivity(intent);
     }
 }

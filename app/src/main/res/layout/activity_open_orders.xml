@@ -15,11 +15,12 @@
 
     <Button
         android:id="@+id/getorders"
+        android:layout_marginTop="10dp"
         android:text="@string/getorders"
         android:textColor="@color/white"
         android:onClick="getOrders"
         android:textAllCaps="false"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
         android:background="@color/ncr_green"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"/>

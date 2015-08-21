@@ -16,6 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.DeliverActivity"
+            android:label="@string/title_activity_deliver" >
+        </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDs0lQFlgJHGHlTZI5dJ_zkIIzNnYYZuCE"/>
     </application>
 
 </manifest>

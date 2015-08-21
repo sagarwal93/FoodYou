@@ -14,4 +14,15 @@ public class MenuItem {
         this.name = name;
         this.price = price;
     }
+
+//    public String getMenuItemJson() {
+//        String retJson = "{";
+//
+//        retJson += ("_id:" + _id + ",");
+//        retJson += ("name:" + name + ",");
+//        retJson += ("price:" + Double.toString(price));
+//
+//        retJson += "}";
+//        return retJson;
+//    }
 }

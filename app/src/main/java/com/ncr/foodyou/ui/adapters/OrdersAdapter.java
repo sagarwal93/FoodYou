@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ncr.foodyou.R;
 import com.ncr.foodyou.models.Order;
+
 import java.util.ArrayList;
 
 /**
@@ -21,10 +22,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        public TextView siteTextView;
+        public TextView distanceTextView;
         public ViewHolder(View v) {
             super(v);
-            mTextView = (TextView) v.findViewById(R.id.order_list_item);
+            siteTextView = (TextView) v.findViewById(R.id.order_list_item_site_name);
+            distanceTextView = (TextView) v.findViewById(R.id.order_list_item_distance);
         }
     }
 
@@ -55,7 +58,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(ordersDataset.get(position).getSiteName());
+        holder.siteTextView.setText(ordersDataset.get(position).getSiteName());
+        holder.distanceTextView.setText(ordersDataset.get(position).getStringDistance());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
