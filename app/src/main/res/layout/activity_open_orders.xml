@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -8,13 +8,55 @@
     tools:context="com.ncr.foodyou.ui.OpenOrdersActivity">
 
     <TextView
-        android:id="@+id/orderdisplay"
+        android:id="@+id/order_information_text"
+        android:text="Order Information"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/acceptorder"/>
+        android:layout_height="40dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_alignParentTop="true"/>
+        <!--android:layout_above="@+id/linearlayout"/-->
+
+
+    <LinearLayout
+        android:layout_below="@+id/order_information_text"
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/siteinfodisplay"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:text="Site\nName\nAddress"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/sitedistancedisplay"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text="10.8 miles"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/rewardinfodisplay"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="Reward info"
+        android:layout_below="@+id/linearlayout" />
     <Button
         android:id="@+id/acceptorder"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/acceptorder"
         android:textColor="@color/white"
         android:onClick="acceptOrder"
@@ -24,4 +66,4 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"/>
 
-</LinearLayout>
+</RelativeLayout>

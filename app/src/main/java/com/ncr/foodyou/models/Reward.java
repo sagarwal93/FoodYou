@@ -16,4 +16,12 @@ public class Reward {
         Description = description;
         Amount = amount;
     }
+
+    public String getTypeString() {
+        return "";
+    }
+
+    public String getDescription() {
+        return Description;
+    }
 }

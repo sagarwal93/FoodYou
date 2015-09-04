@@ -75,6 +75,10 @@ public class Order {
         return Double.toString(distance);
     }
 
+    public Reward getReward() {
+        return Reward;
+    }
+
 //    public String getOrderJson() {
 //        String retJson = "{";
 //

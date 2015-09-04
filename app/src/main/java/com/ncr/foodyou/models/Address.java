@@ -28,7 +28,9 @@ public class Address {
         String retVal = "";
 
         retVal += Address1 + "\n";
-        retVal += Address2 + "\n";
+        if (Address2 != null && !Address2.isEmpty()) {
+            retVal += Address2 + "\n";
+        }
         retVal += City + ", " + State + Zip + "\n";
         retVal += Phone + "\n";
 
