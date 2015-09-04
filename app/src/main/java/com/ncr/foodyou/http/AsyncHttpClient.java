@@ -116,7 +116,6 @@ public class AsyncHttpClient {
                     put.setEntity(se);
 
                     HttpResponse responseHttp = client.execute(put);
-
                     if (responseHttp.getStatusLine().getStatusCode() == 204) {
                         return true;
                     }

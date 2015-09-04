@@ -16,13 +16,16 @@ public class Order {
     private Customer Customer;
     private Driver driver;
     private OrderState Status;
+    private Reward Reward;
 
-    public Order(String id, double distance, Site site, List<MenuItem> items, Customer customer, OrderState status) {
+    public Order(String id, double distance, Site site, List<MenuItem> items,
+                 Customer customer, OrderState status, Reward reward) {
         this.id = id;
         this.distance = distance;
-        this.Site = site;
-        this.MenuItems = items;
-        this.Customer = customer;
+        Site = site;
+        MenuItems = items;
+        Customer = customer;
+        Reward = reward;
         Status = status;
     }
 
