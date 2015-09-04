@@ -6,6 +6,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
@@ -73,6 +74,63 @@ public class AsyncHttpClient {
                     Log.e("Crap", e.getMessage());
                 }
                 return null;
+            }
+        }.execute();
+    }
+
+    public void put(final String url, final AsyncHttpResponseHandler handler) {
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    HttpPut put = new HttpPut(url);
+                    HttpResponse responseHttp = client.execute(put);
+
+                    if (responseHttp.getStatusLine().getStatusCode() == 204) {
+                        return null;
+                    }
+                }
+                catch (Exception e) {
+                    Log.e("Put Exception", e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                handler.onSuccess();
+            }
+        }.execute();
+    }
+
+    public void put(final String url, final String data, final AsyncHttpResponseHandler handler) {
+        new AsyncTask<Void, Void, Boolean>() {
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                try {
+                    HttpPut put = new HttpPut(url);
+                    StringEntity se = new StringEntity(data.toString(), HTTP.UTF_8);
+                    put.setEntity(se);
+
+                    HttpResponse responseHttp = client.execute(put);
+
+                    if (responseHttp.getStatusLine().getStatusCode() == 204) {
+                        return true;
+                    }
+                }
+                catch (Exception e) {
+                    Log.e("Put Exception", e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+                handler.onSuccess();
             }
         }.execute();
     }

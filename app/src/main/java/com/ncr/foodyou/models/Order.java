@@ -9,20 +9,33 @@ public class Order {
 
     public enum OrderState {Pending, Assigned, Pickedup, Delivered}
 
-    private String _id;
+    private String id;
     private double distance;
     private Site Site;
     private List<MenuItem> MenuItems;
     private Customer Customer;
+    private Driver driver;
     private OrderState Status;
 
-    public Order(String _id, double distance, Site site, List<MenuItem> items, Customer customer, OrderState status) {
-        this._id = _id;
+    public Order(String id, double distance, Site site, List<MenuItem> items, Customer customer, OrderState status) {
+        this.id = id;
         this.distance = distance;
         this.Site = site;
         this.MenuItems = items;
         this.Customer = customer;
         Status = status;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public String getOrderId() {
+        return id;
     }
 
     public String getSiteName() {

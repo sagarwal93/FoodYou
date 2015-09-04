@@ -20,9 +20,15 @@
             android:name=".ui.DeliverActivity"
             android:label="@string/title_activity_deliver" >
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDs0lQFlgJHGHlTZI5dJ_zkIIzNnYYZuCE"/>
+            android:value="AIzaSyDs0lQFlgJHGHlTZI5dJ_zkIIzNnYYZuCE" />
+
+        <activity
+            android:name=".ui.ConfirmationActivity"
+            android:label="@string/title_activity_confirmation" >
+        </activity>
     </application>
 
 </manifest>

@@ -7,5 +7,6 @@ import org.json.JSONObject;
 public interface AsyncHttpResponseHandler {
 
     void onSuccess(JSONObject obj);
+    void onSuccess();
 
 }

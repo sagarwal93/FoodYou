@@ -8,4 +8,5 @@
     <string name="acceptorder">Accept Order</string>
     <string name="denyorder">Deny Order</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_confirmation">ConfirmationActivity</string>
 </resources>

@@ -35,6 +35,43 @@ public class FoodYouAPI {
                     Log.e("GSON exception", e.getMessage());
                 }
             }
+
+            @Override
+            public void onSuccess() {
+
+            }
+        });
+    }
+
+    public static void updateOrderStatus(final Order order, final AsyncResultHandler handler) {
+        String url = BASE_URL + "/order/" + order.getOrderId() + "/Status/"
+                + order.getOrderState().toString();
+        client.put(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject obj) {
+
+            }
+
+            @Override
+            public void onSuccess() {
+                handler.onSuccess();
+            }
+        });
+    }
+
+    public static void claimOrderForDriver(final Order order, final AsyncResultHandler handler) {
+        String url = BASE_URL + "/order/" + order.getOrderId() + "/Driver";
+        client.put(url, new Gson().toJson(order.getDriver()), new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject obj) {
+
+            }
+
+            @Override
+            public void onSuccess() {
+                handler.onSuccess();
+            }
+
         });
     }
 

@@ -1,5 +1,6 @@
 package com.ncr.foodyou.ui;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -85,8 +86,14 @@ public class DeliverActivity extends FragmentActivity implements OnMapReadyCallb
 
             statusInfoTextView.setText("");
             statusInfoTextView.setText(getRouteStateText());
+            changeMapMarkers();
         }
-        changeMapMarkers();
+        else if (Session.activeOrder.getOrderState() == Order.OrderState.Pickedup) {
+            Session.activeOrder.setOrderState(Order.OrderState.Delivered);
+
+            Intent intent = new Intent(this, ConfirmationActivity.class);
+            startActivity(intent);
+        }
     }
 
     public String getRouteStateText() {
